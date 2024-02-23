@@ -1,6 +1,26 @@
 package com.ualr.simpletasklist.model;
 
+import java.util.HashMap;
+
 public class TaskList {
+
+    private HashMap<String, Task> tasks;
+
+    public TaskList() {
+        this.tasks = new HashMap<>();
+    }
+
+    public void addTask(String description, String isDone) {
+        this.tasks.put(description, new Task(description, isDone));
+    }
+
+    public String getTask(String description) {
+        try {
+            return this.tasks.get(description).getIsDone();
+        } catch (NullPointerException e) {
+            return "";
+        }
+    }
 
     // TODO 03. Define TaskList's attributes. The class will have just one attribute to store all
     //  the tasks created by the user.

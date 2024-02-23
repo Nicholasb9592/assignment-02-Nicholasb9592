@@ -1,23 +1,57 @@
 package com.ualr.simpletasklist;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.ualr.simpletasklist.databinding.ActivityMainBinding;
 
+import android.view.View;
+
+import android.widget.Button;
+
+import android.widget.EditText;
+
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private EditText mDescriptionET;
+    private EditText mIsDoneET;
+    private TextView mOutputTask;
+
+
 
     // TODO 05. Add a TaskList member to the MainActivity. Initialize the new member.
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        com.ualr.simpletasklist.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        this.mDescriptionET = findViewById(R.id.description_edit_text);
+        this.mIsDoneET = findViewById(R.id.isDone_edit_text);
+        this.mOutputTask = findViewById(R.id.output_text_view);
+        Button mAddBtn = findViewById(R.id.add_btn);
+        Button mDeleteBtn = findViewById(R.id.delete_btn);
+
+        mAddBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onAddBtnClicked();
+            }
+        });
+
+        mDeleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onDeleteBtnClicked();
+            }
+        });
 
         //TODO 06.02 Bind the onAddBtnClicked method to the add button, so the onAddBtnClicked is
         // triggered whenever the user clicks on that button
@@ -29,7 +63,19 @@ public class MainActivity extends AppCompatActivity {
         // triggered whenever the user clicks on that button
     }
 
+    private void onAddBtnClicked() {
+        String TaskDescription = this.mDescriptionET.getText().toString();
+        String TaskIsDone = this.mIsDoneET.getText().toString();
+    }
 
+    private void onDeleteBtnClicked() {
+        String TaskIsDone = this.mDescriptionET.getText().toString();
+    }
+
+    @Override
+    public void markDone(String taskIsDone) {
+        this.mOutputTask.setText(taskIsDone);
+    }
     // TODO 06. Create a new functionality to add a new task using the description provided
     //  through the text field on the top of the screen by tapping the "+" on the right
 
